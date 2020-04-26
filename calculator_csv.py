@@ -3,9 +3,9 @@ import sys
 import json
 
 def calculator(income):
-    start_point = 5000  # ???
-    social_insurance_point = 0.08 + 0.02 + 0.005 + 0.06  # ????
-    # ??????????
+    start_point = 5000  # 起征点
+    social_insurance_point = 0.08 + 0.02 + 0.005 + 0.06  # 社保比例
+    # 需要缴税的那部分工资
     tax_part = income * (1 - social_insurance_point) - start_point  
     if tax_part <= 0:
         tax = 0 
@@ -28,24 +28,24 @@ def calculator(income):
 
 def output(data):
     '''
-    ???????
+    将字典存入文件
     '''
-    # ?????? json ??
+    # 将字典转换为 json 格式
     json_str = json.dumps(data)
 
-    # ?? sys.argv[2] ????????? 'w'??? json_str
+    # 打开 sys.argv[2] 路径的文件，属性为 'w',写入 json_str
     with open(sys.argv[2],'w') as f:
         f.write(json_str)
 
 def main():
     '''
-    main() ??
+    main() 函数
     '''
-    # ???? result???? ID : ????
+    # 新建字典 result待存入 ID : 税后收入
     result = {}
-    # ?? sys.argv[1] ?? csv ?????
+    # 通过 sys.argv[1] 拿到 csv 文件的路径
     data_file = sys.argv[1]
-    # ?? csv ???????????????
+    # 读取 csv 文件，计算税后收入，并存入字典
     usr_csv = csv.reader(open(data_file))
     data_list = list(usr_csv)
 
